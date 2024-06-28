@@ -20,8 +20,8 @@ import { UpdateTeacherDto } from './dto/update-teacher.dto';
 export class TeachersController {
   constructor(private readonly teachersService: TeachersService) {}
 
-  @Roles(Role.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(Role.ADMIN)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/rank')
   findAllType() {
     return this.teachersService.findAllRank();

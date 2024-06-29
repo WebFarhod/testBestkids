@@ -29,7 +29,7 @@ export class TeachersService {
     return data;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const data = await this.teacherModel
       .findById(id)
       .populate(['socials', 'skills', 'infos'])
@@ -38,15 +38,21 @@ export class TeachersService {
     return data;
   }
 
-  async update(id: string, data: UpdateTeacherDto) {
-    const teacher = await this.teacherModel.findByIdAndUpdate(id, data, {
-      new: true,
-      useFindAndModify: false,
-    });
-    if (!teacher) {
-      throw new NotFoundException(`Teacher with ID ${id} not found`);
+  async update(data: UpdateTeacherDto) {
+    const tData = await this.teacherModel.findById(data._id).exec();
+    if (!tData) {
+      throw new NotFoundException(`Data not found`);
     }
-    return teacher;
+
+    tData.image = data.image;
+    tData.name = data.name;
+    tData.surname = data.surname;
+    tData.rank = data.rank;
+    tData.description = data.description;
+    tData.socials = data.socials;
+    tData.skills = data.skills;
+    tData.infos = data.infos;
+    return tData.save();
   }
 
   async remove(id: string[] | string) {

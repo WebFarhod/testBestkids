@@ -14,7 +14,7 @@ export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   async create(@UploadedFile() file: Express.Multer.File) {
     console.log('====================================');
     console.log(file);

@@ -34,8 +34,8 @@ export class TeachersController {
     return this.teachersService.createRank(data);
   }
 
-  // @Roles(Role.ADMIN)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
   create(@Body() data: CreateTeacherDto) {
     return this.teachersService.create(data);
@@ -48,18 +48,18 @@ export class TeachersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.teachersService.findOne(+id);
+    return this.teachersService.findOne(id);
   }
 
-  // @Roles(Role.ADMIN)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  @Put(':id')
-  update(@Param('id') id: string, @Body() data: UpdateTeacherDto) {
-    return this.teachersService.update(id, data);
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Put()
+  update(@Body() data: UpdateTeacherDto) {
+    return this.teachersService.update(data);
   }
 
-  // @Roles(Role.ADMIN)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete()
   remove(@Body() data) {
     return this.teachersService.remove(data.id);
